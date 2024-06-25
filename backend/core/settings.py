@@ -1,22 +1,23 @@
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv # type: ignore
+from dotenv import load_dotenv  # type: ignore
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-WIN_USER = 'NK'  #'Irakli' or 'gogic' or 'NK'
+WIN_USER = 'NK'  # 'Irakli' or 'gogic' or 'NK'
 
 if os.name == 'nt':
     # python_base = f'C:\\Users\\{WIN_USER}\\AppData\\Local\\Programs\\Python\\Python311'
     python_base = f'{BASE_DIR}\\venv'
     os.environ['PATH'] = os.path.join(
-        python_base, 'Lib\\site-packages\\osgeo') + ';'+ os.environ['PATH']
+        python_base, 'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
     os.environ['PROJ_LIB'] = os.path.join(
-        python_base, 'Lib\\site-packages\\osgeo\\data\\proj') + ';'+ os.environ['PATH']
+        python_base, 'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
 
-load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -29,9 +30,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,9 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'django.contrib.gis',
     'rest_framework',
+    'corsheaders',
     'api'
 ]
 
