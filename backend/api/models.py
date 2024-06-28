@@ -58,7 +58,7 @@ class Purchases(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
+
 class Nodes(models.Model):
     name = models.CharField(max_length=20)
 
