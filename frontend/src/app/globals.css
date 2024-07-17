@@ -1,0 +1,40 @@
+:root {
+    --accent-color: #f99d20;
+    --bg-modal: #829cbc;
+    --bg-color: #f2f3f5;
+    --bg-color-opaque: rgba(177, 182, 149, 0.5);
+    --btn-text: #3c4856;
+    --btn-bg: #acc0cb;
+    --text-color: #3c4856;
+    --svg-bg: var(--bg-color);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--bg-color);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: var(--bg-color);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-feature-settings:
+        "clig" off,
+        "liga" off;
+}
+

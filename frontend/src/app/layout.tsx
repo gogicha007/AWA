@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Logo from '../../public/images/chuck.png';
+import Header from '@/components/header/Header';
 
 export const metadata = {
   title: 'GZA AWA',
@@ -14,16 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="logo">
-          <Image
-            src={Logo}
-            priority={false}
-            width={120}
-            height={120}
-            alt="logo"
-          />
-        </div>
-        {children}
+        <header>
+          
+          <Header/>
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   );
