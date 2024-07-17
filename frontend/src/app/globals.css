@@ -11,8 +11,7 @@
 
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     height: 100vh;
     margin: 0;
     background-color: var(--bg-color);
@@ -20,8 +19,6 @@ body {
 
 header {
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0;
     background-color: var(--bg-color);
 }
@@ -37,4 +34,9 @@ header {
         "clig" off,
         "liga" off;
 }
-
+a {
+    text-decoration: none;
+}
+ul {
+    list-style-type: none;
+}
