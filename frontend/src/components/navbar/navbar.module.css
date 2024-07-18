@@ -6,9 +6,6 @@
     align-items: center;
     gap: 20px;
 }
-/* .container li:last-child {
-    margin-top: 40px;
-} */
 .link {
     display: flex;
     justify-content: flex-start;
@@ -16,6 +13,10 @@
     color: #484b6a;
     cursor: pointer;
 }
+.link:hover {
+    opacity: 0.8;
+}
 .active {
-    font-weight: 700
+    font-weight: 700;
+    opacity: 0.8
 }
