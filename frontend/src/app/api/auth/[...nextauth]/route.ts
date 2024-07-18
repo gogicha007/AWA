@@ -7,7 +7,7 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
       credentials: {
         username: {
-          label: 'user',
+          label: 'username',
           type: 'text',
         },
         password: {
