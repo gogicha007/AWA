@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "icon": "/images/home.svg",
+      "title_en": "Main",
+      "url": "/"
+    },
+    {
+      "id": 2,
+      "icon": "/images/inventory.svg",
+      "title": "Villages",
+      "url": "/villages"
+    },
+    {
+      "id": 3,
+      "icon": "/images/settings.svg",
+      "title": "Settings",
+      "url": "/settings"
+    }
+  ]

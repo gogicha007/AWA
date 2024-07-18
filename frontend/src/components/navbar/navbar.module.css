@@ -1,0 +1,21 @@
+.wrapper {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+/* .container li:last-child {
+    margin-top: 40px;
+} */
+.link {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    color: #484b6a;
+    cursor: pointer;
+}
+.active {
+    font-weight: 700
+}
