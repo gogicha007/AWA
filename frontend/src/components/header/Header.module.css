@@ -22,4 +22,9 @@
 }
 .btn {
   padding: 5px 10px;
+  background: var(--accent-color);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

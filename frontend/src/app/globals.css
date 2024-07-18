@@ -1,43 +1,45 @@
 :root {
-    --accent-color: #fca311;
-    --bg-modal: #e5e5e5;
-    --bg-color: #ffffff;
-    --bg-color-opaque: rgba(177, 182, 149, 0.5);
-    --btn-text: #000000;
-    --btn-bg: #ffffff;
-    --text-color: #000000;
-    --svg-bg: var(--bg-color);
+  --accent-color: #fca311;
+  --bg-modal: #e5e5e5;
+  --bg-color: #ffffff;
+  --bg-color-opaque: rgba(177, 182, 149, 0.5);
+  --btn-text: #14213d;
+  --btn-bg: #ffffff;
+  --text-color: #000000;
+  --svg-bg: var(--bg-color);
 }
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--bg-color);
 }
 header {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  background-color: var(--bg-color);
 }
 main {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-feature-settings:
-        "clig" off,
-        "liga" off;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-feature-settings: 'clig' off, 'liga' off;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
+}
+a,
+a:visited {
+  color: inherit;
 }
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
