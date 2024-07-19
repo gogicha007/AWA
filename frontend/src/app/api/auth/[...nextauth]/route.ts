@@ -16,15 +16,15 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials): Promise<any> {
-        const res = await fetch("/your/endpoint", {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" }
-          })
-          const user = await res.json()
-      }
+        const res = await fetch('/your/endpoint', {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const user = await res.json();
+      },
     }),
-  ]
+  ],
 };
 const handler = NextAuth(authOptions);
 
