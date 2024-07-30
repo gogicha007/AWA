@@ -1,4 +1,4 @@
-import Form from '@/app/api/auth/register/form';
+import Form from './form';
 
 export default async function Register() {
   return <Form />;
