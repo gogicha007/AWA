@@ -1,0 +1,22 @@
+.modal {
+  margin: auto;
+  padding: 20px;
+  border: none;
+  background-color: transparent;
+}
+
+.modal:backdrop {
+  backgroung-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__container {
+    padding: 20px;
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

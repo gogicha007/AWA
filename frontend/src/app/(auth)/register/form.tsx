@@ -6,20 +6,33 @@ import { FormEvent } from 'react';
 export default function Form() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.currentTarget);
     const formData = new FormData(e.currentTarget);
-    console.log(formData.get('email'));
-    const response = await fetch('http://127.0.0.1:8000/api/user/register/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: formData.get('email'),
+    console.log(
+      JSON.stringify({
+        username: formData.get('email'),
         password: formData.get('password'),
-      }),
-    });
-    console.log({ response });
+      })
+    );
+    const resCreateUser = await fetch(
+      'http://127.0.0.1:8000/api/user/register/',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.get('email'),
+          password: formData.get('password'),
+        }),
+      }
+    );
+    if (resCreateUser.status === 201) {
+      const data = await resCreateUser.json();
+    } else {
+      const errResponse = await resCreateUser.json();
+      console.log(errResponse.username[0]);
+    }
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit}>

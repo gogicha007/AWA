@@ -17,3 +17,7 @@
 .input, .btn {
     height: 30px;
 }
+
+.input {
+    padding: 5px;
+}
