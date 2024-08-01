@@ -1,6 +1,6 @@
 'use client';
 import styles from './page.module.css';
-
+import AlertModal from '@/components/alert-modal/alert-modal';
 import { FormEvent } from 'react';
 
 export default function Form() {
