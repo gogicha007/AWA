@@ -5,6 +5,7 @@ import { useRef } from 'react';
 type Props = {
   title: string;
 };
+
 export default function AlertModal({ title }: Props) {
   const dialogRef = useRef<null | HTMLDialogElement>(null);
 

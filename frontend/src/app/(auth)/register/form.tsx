@@ -30,6 +30,7 @@ export default function Form() {
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
     } else {
+      
       const errResponse = await resCreateUser.json();
       console.log(errResponse.username[0]);
     }
