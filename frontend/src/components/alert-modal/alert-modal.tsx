@@ -1,14 +1,18 @@
 'use client';
 import styles from './alert-modal.module.css';
-import { useRef } from 'react';
+import { useRef, MutableRefObject, ReactNode } from 'react';
 
 type Props = {
+  children: ReactNode;
   title: string;
+  ref: MutableRefObject<HTMLDialogElement | null>
 };
 
-export default function AlertModal({ title }: Props) {
+export default function AlertModal(
+  { children, title, ref }: Props,
+  
+) {
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-
   const closeDialog = () => {
     dialogRef.current?.close();
   };
@@ -18,7 +22,7 @@ export default function AlertModal({ title }: Props) {
   };
 
   return (
-    <dialog ref={dialogRef} className={styles.modal}>
+    <dialog ref={ref} className={styles.modal}>
       <div className={styles.modal__container}>
         <h1>{title}</h1>
         <button onClick={clickOk}>Ok</button>
