@@ -1,15 +1,16 @@
-import { useRef } from "react"
+import { useRef } from 'react';
 
 export default function useModal() {
-    const ref = useRef<null|HTMLDialogElement>(null);
-    
-    const onOpen = () => {
-        console.log('show the fucking modal')
-        ref.current?.showModal()};
+    const dialogRef = useRef<HTMLDialogElement>(null);
 
-    const onClose = () => {
-        ref.current?.close();
+  function toggleDialog() {
+    if (!dialogRef.current) {
+      return;
     }
+    dialogRef.current.hasAttribute('open')
+      ? dialogRef.current.close()
+      : dialogRef.current.showModal();
+  }
 
-    return { ref, onOpen, onClose}
+  return { dialogRef, toggleDialog };
 }

@@ -1,32 +1,31 @@
-'use client';
+// 'use client';
 import styles from './alert-modal.module.css';
-import { useRef, MutableRefObject, ReactNode } from 'react';
+import { useRef, MutableRefObject, ReactNode, forwardRef } from 'react';
 
 type Props = {
   children: ReactNode;
-  title: string;
-  ref: MutableRefObject<HTMLDialogElement | null>
+  toggleDialog: () => void;
 };
 
-export default function AlertModal(
-  { children, title, ref }: Props,
-  
-) {
-  const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const closeDialog = () => {
-    dialogRef.current?.close();
-  };
-
-  const clickOk = () => {
-    closeDialog();
-  };
-
-  return (
-    <dialog ref={ref} className={styles.modal}>
-      <div className={styles.modal__container}>
-        <h1>{title}</h1>
-        <button onClick={clickOk}>Ok</button>
-      </div>
-    </dialog>
-  );
-}
+export const AlertModal = forwardRef<HTMLDialogElement, Props>(
+  ({ children, toggleDialog }, ref) => {
+    return (
+      <dialog
+        ref={ref}
+        onClick={(e) => {
+          if (e.currentTarget === e.target) {
+            toggleDialog();
+          }
+        }}
+        className={styles.modal}
+      >
+        <div className={styles.modal__container}>
+          {children}
+          <button type="button" onClick={toggleDialog}>
+            Ok
+          </button>
+        </div>
+      </dialog>
+    );
+  }
+);
