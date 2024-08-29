@@ -23,7 +23,7 @@ const Login = (props: any) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className={styles.container}>
+    <form onSubmit={onSubmit} className={styles.login__form}>
       <label htmlFor="userName">User</label>
       <input
         type="text"

@@ -17,6 +17,14 @@
     color: var(--text-color);
     background-color: var(--bg-color);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 15px;
+}
+
+.modal__btn {
+  width: 100px;
+  height: 60px;
+  cursor: pointer;
 }

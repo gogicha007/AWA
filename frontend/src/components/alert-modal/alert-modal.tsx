@@ -21,7 +21,7 @@ export const AlertModal = forwardRef<HTMLDialogElement, Props>(
       >
         <div className={styles.modal__container}>
           {children}
-          <button type="button" onClick={toggleDialog}>
+          <button type="button" onClick={toggleDialog} className={styles.modal__btn}>
             Ok
           </button>
         </div>

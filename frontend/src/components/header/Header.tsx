@@ -12,6 +12,9 @@ const Header = () => {
   const handleRegister = () => {
     router.push('/register')
   };
+  const handleSignin = () => {
+    router.push('/signin')
+  }
   return (
     <div className={styles.wrapper}>
       <Link href="/">
@@ -25,7 +28,7 @@ const Header = () => {
       </Link>
       <Navbar />
       <div className={styles.auth}>
-        <button className={styles.btn}>Log In</button>
+        <button type='button' onClick={handleSignin} className={styles.btn}>Log In</button>
         <button type="button" onClick={handleRegister} className={styles.btn}>
           Register
         </button>

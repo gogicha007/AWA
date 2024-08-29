@@ -2,7 +2,7 @@
 import styles from './page.module.css';
 import { AlertModal } from '@/components/alert-modal/alert-modal';
 import useModal from '@/lib/helper';
-import { FormEvent, ReactNode, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 export default function Form() {
   const { dialogRef, toggleDialog } = useModal();
@@ -32,6 +32,7 @@ export default function Form() {
         }),
       }
     );
+    console.log('error')
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
     } else {
@@ -39,16 +40,16 @@ export default function Form() {
       console.log(errResponse.username[0]);
       setDialogContent(errResponse.username[0]);
       toggleDialog();
-      console.log(dialogRef.current);
     }
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <input className={styles.input} type="email" name="email" />
-      <input className={styles.input} type="password" name="password" />
-      <button className={styles.btn} type="submit">
+      <input className={styles.form__input} type="email" name="email" />
+      <input className={styles.form__input} type="password" name="password" />
+      <button className={styles.form__btn} type="submit">
         Submit
       </button>
+      <p className={styles.form__login}>Have an account? <a href=''>Sign In</a></p>
       <AlertModal toggleDialog={toggleDialog} ref={dialogRef}>
         <h3>{dialogContent}</h3>
       </AlertModal>
