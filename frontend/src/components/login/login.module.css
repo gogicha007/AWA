@@ -4,3 +4,7 @@
     flex-direction: column;
     gap: 7px;
 }
+
+.login__controls {
+    gap: 10px;
+}

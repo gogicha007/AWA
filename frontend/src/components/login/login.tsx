@@ -39,7 +39,7 @@ const Login = (props: any) => {
         autoComplete="new-password"
         onChange={(e) => (userPass.current = e.target.value)}
       />
-      <div className={styles.controls}>
+      <div className={styles.login__controls}>
         <button type="submit">Submit</button>
         <button type="button">
           <Link href={"/"}>Cancel</Link>
