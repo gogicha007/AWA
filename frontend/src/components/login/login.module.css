@@ -1,7 +1,7 @@
 .login__form {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 10px;
 }
 .login__form input {
     padding: 2px;

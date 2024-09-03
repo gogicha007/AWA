@@ -32,7 +32,7 @@ export default function Form() {
         }),
       }
     );
-    console.log('error')
+    console.log('error');
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
     } else {
@@ -44,7 +44,9 @@ export default function Form() {
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      <label htmlFor="email">User</label>
       <input className={styles.form__input} type="email" name="email" />
+      <label htmlFor="password">Password</label>
       <input className={styles.form__input} type="password" name="password" />
       <button className={styles.form__btn} type="submit">
         Submit

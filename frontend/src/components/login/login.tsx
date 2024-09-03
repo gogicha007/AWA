@@ -26,7 +26,7 @@ const Login = (props: any) => {
     <form onSubmit={onSubmit} className={styles.login__form}>
       <label htmlFor="userName">User</label>
       <input
-        type="text"
+        type="email"
         id="userName"
         name="userName"
         onChange={(e) => (userName.current = e.target.value)}
