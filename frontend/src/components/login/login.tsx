@@ -40,8 +40,8 @@ const Login = (props: any) => {
         onChange={(e) => (userPass.current = e.target.value)}
       />
       <div className={styles.login__controls}>
-        <button type="submit">Submit</button>
-        <button type="button">
+        <button className={styles.login__btn} type="submit">Submit</button>
+        <button className={styles.login__btn} type="button">
           <Link href={"/"}>Cancel</Link>
         </button>
       </div>

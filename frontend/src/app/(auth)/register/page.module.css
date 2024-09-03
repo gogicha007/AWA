@@ -21,10 +21,10 @@
 .form__btn {
     cursor: pointer
 }
-.form__login {
+.register__login {
     font-weight: normal;
 }
-.form a {
+.register a {
     font-weight: normal;
-    color: blue
+    color: blue;
 }

@@ -49,7 +49,6 @@ export default function Form() {
       <button className={styles.form__btn} type="submit">
         Submit
       </button>
-      <p className={styles.form__login}>Have an account? <a href=''>Sign In</a></p>
       <AlertModal toggleDialog={toggleDialog} ref={dialogRef}>
         <h3>{dialogContent}</h3>
       </AlertModal>
