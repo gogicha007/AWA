@@ -2,6 +2,7 @@
 import styles from './page.module.css';
 import { AlertModal } from '@/components/alert-modal/alert-modal';
 import useModal from '@/lib/helper';
+import { endpointObj } from '@/lib/endpoints';
 import { FormEvent, useState } from 'react';
 
 export default function Form() {
@@ -19,7 +20,7 @@ export default function Form() {
       })
     );
     const resCreateUser = await fetch(
-      'http://127.0.0.1:8000/api/user/register/',
+      endpointObj.registerUrl,
       {
         method: 'POST',
         headers: {
@@ -32,7 +33,6 @@ export default function Form() {
         }),
       }
     );
-    console.log('error');
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
     } else {
