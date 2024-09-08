@@ -1,7 +1,9 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session, User, Account } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import { jwtDecode } from 'jwt-decode';
 import { endpointObj } from '@/lib/endpoints';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { AdapterUser } from 'next-auth/adapters';
 
 interface Token {
   username: string;
@@ -46,6 +48,14 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, user, token }) {
+      return session;
+    },
+    // async jwt({ token, user, account, session }: {token: JWT, user: User, account: Account | null, session: Session}) {
+    //   console.log('jwt callback', { token, user, session });
+    // },
+  },
   session: { strategy: 'jwt' },
 };
 const handler = NextAuth(authOptions);
