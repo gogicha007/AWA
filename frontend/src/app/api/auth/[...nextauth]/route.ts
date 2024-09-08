@@ -1,8 +1,10 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
+import { jwtDecode } from 'jwt-decode';
 import { endpointObj } from '@/lib/endpoints';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
+  session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -17,6 +19,8 @@ export const authOptions = {
           headers: { 'Content-Type': 'application/json' },
         });
         const user = await res.json();
+        const token = jwtDecode(user.refresh);
+        console.log(token);
         if (user) {
           return user;
         } else {
