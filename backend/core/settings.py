@@ -1,12 +1,16 @@
+import os
+import dotenv # import load_dotenv  # type: ignore
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv  # type: ignore
-import os
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+dotenv_file = BASE_DIR / '.env.local'
+
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 WIN_USER = 'NK'  # 'Irakli' or 'gogic' or 'NK'
 

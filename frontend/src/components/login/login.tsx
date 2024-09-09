@@ -17,7 +17,6 @@ const Login = (props: any) => {
       password: userPass.current,
       redirect: false,
     });
-    console.log(res)
     if (!res?.error) {
       router.push(props.callbackUrl ?? "/");
     } else {
