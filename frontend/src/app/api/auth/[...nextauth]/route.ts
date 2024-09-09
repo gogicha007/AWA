@@ -69,14 +69,14 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user}): Promise<JWT> {
-      console.log('jwt callback', { token, user });
-      return user;
+    async jwt({ token, account, user}): Promise<JWT> {
+      console.log('jwt callback', { token, user, account });
+      return token;
     },
     async session({ session, user, token }): Promise<Session> {
       // console.log('Session', { session });
-      session.access = token.access as string;
-      session.refresh = token.refrech as string;
+      session.accessToken = token.access as string;
+      session.refreshToken = token.refrech as string;
       return session;
     },
   },
