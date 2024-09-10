@@ -1,5 +1,6 @@
 import Header from '@/components/header/header';
-import "./globals.css";
+import './globals.css';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 export const metadata = {
   title: 'GZA AWA',
@@ -14,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header>
-          <Header />
-        </header>
-        <main>{children}</main>
+        <AuthProvider>
+          <header>
+            <Header />
+          </header>
+          <main>{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );

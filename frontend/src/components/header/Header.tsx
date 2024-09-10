@@ -1,20 +1,14 @@
 'use client';
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './header.module.css';
 import Image from 'next/image';
 import Navbar from '../navbar/navbar';
+import AuthBar from '../authbar/authbar';
 import Logo from '../../../public/images/chuck.png';
 
 const Header = () => {
-  const router = useRouter();
-  const handleRegister = () => {
-    router.push('/register')
-  };
-  const handleSignin = () => {
-    router.push('/signin')
-  }
   return (
     <div className={styles.wrapper}>
       <Link href="/">
@@ -27,12 +21,7 @@ const Header = () => {
         />
       </Link>
       <Navbar />
-      <div className={styles.auth}>
-        <button type='button' onClick={handleSignin} className={styles.btn}>Log In</button>
-        <button type="button" onClick={handleRegister} className={styles.btn}>
-          Register
-        </button>
-      </div>
+      <AuthBar />
     </div>
   );
 };
