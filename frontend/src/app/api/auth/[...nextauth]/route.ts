@@ -45,7 +45,6 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: {},
         password: {},
-        
       },
       async authorize(credentials) {
         const res = await fetch(endpointObj.signinUrl, {
@@ -55,8 +54,16 @@ export const authOptions: NextAuthOptions = {
         });
         const token = await res.json();
         if (res.status !== 200) return null;
-        const { firstName, lastName, username, email, user_id, exp, is_superuser, is_staff } =
-          jwtDecode(token.access) as UserData;
+        const {
+          firstName,
+          lastName,
+          username,
+          email,
+          user_id,
+          exp,
+          is_superuser,
+          is_staff,
+        } = jwtDecode(token.access) as UserData;
         return {
           ...token,
           exp,
@@ -74,14 +81,21 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account, user}): Promise<JWT> {
-      console.log('jwt callback', { token, user, account });
+    async jwt({ token, user }): Promise<JWT> {
+      if (user) {
+        // token.refreshToken = user.refresh;
+        // token.accessToken = user.access;
+        // token.name = `${user.firstName} ${user.lastName}`
+        // token.email = user.email;
+        
+      }
+      console.log('jwt callback', { token, user });
       return token;
     },
     async session({ session, user, token }): Promise<Session> {
-      // console.log('Session', { session });
       session.accessToken = token.access as string;
       session.refreshToken = token.refrech as string;
+      // session.user.name = token.name as string;
       return session;
     },
   },
