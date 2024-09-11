@@ -23,7 +23,7 @@ const Header = () => {
       <Navbar />
       <AuthBar />
     </div>
-  );
+);  
 };
 
 export default Header;

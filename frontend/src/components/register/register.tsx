@@ -1,11 +1,11 @@
 'use client';
-import styles from './page.module.css';
+import styles from './register.module.css';
 import { AlertModal } from '@/components/alert-modal/alert-modal';
 import useModal from '@/lib/helper';
 import { endpointObj } from '@/lib/endpoints';
 import { FormEvent, useState } from 'react';
 
-export default function Form() {
+export default function RegisterForm() {
   const { dialogRef, toggleDialog } = useModal();
 
   const [dialogContent, setDialogContent] = useState('error');
@@ -35,6 +35,7 @@ export default function Form() {
     );
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
+      // router.push(props.callbackUrl ?? "/");
     } else {
       const errResponse = await resCreateUser.json();
       console.log(errResponse.username[0]);

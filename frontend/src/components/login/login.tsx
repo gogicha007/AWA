@@ -5,7 +5,7 @@ import styles from "./login.module.css";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const Login = (props: any) => {
+const LoginForm = (props: any) => {
   const router = useRouter();
   const userName = useRef("");
   const userPass = useRef("");
@@ -51,4 +51,4 @@ const Login = (props: any) => {
   );
 };
 
-export default Login;
+export default LoginForm;
