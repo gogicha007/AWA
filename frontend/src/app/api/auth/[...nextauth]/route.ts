@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions, Session } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { jwtDecode } from 'jwt-decode';
 import { endpointObj } from '@/lib/endpoints';
@@ -64,13 +64,12 @@ export const authOptions: NextAuthOptions = {
           is_superuser,
           is_staff,
         } = jwtDecode(token.access) as UserData;
+        const name = firstName.concat(' ', lastName);
         return {
           ...token,
           exp,
           user: {
-            firstName,
-            lastName,
-            username,
+            name,
             email,
             user_id,
             is_staff,
@@ -82,20 +81,19 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }): Promise<JWT> {
-      if (user) {
-        // token.refreshToken = user.refresh;
-        // token.accessToken = user.access;
-        // token.name = `${user.firstName} ${user.lastName}`
-        // token.email = user.email;
-        
-      }
       console.log('jwt callback', { token, user });
+      if (user) {
+        token.user = user.user;
+        token.access = user.access;
+        token.refresh = user.refresh;
+      }
       return token;
     },
-    async session({ session, user, token }): Promise<Session> {
-      session.accessToken = token.access as string;
-      session.refreshToken = token.refrech as string;
-      // session.user.name = token.name as string;
+    async session({ session, token }): Promise<Session> {
+      session.user = token.user as User;
+      session.accessToken = token.access;
+      session.refreshToken = token.refresh;
+      console.log('session callback', { session });
       return session;
     },
   },

@@ -4,11 +4,17 @@ import { JWT } from "next-auth/jwt"
 /** Example on how to extend the built-in session types */
 declare module "next-auth" {
   interface User {
-    firstName?: string;
-    lastName?: string;
+    user?: {
+      name: string,
+      email: string,
+      user_id: number;
+      is_staff: boolean;
+      is_superuser: boolean;
+    }
     access?: string;
     refresh?: string;
   }
+
   interface Session {
     /** This is an example. You can find me in types/next-auth.d.ts */
     accessToken?: string,
@@ -20,7 +26,7 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     /** This is an example. You can find me in types/next-auth.d.ts */
-    accessToken?: string,
-    refreshToken?: string
+    access?: string,
+    refresh?: string
   }
 }
