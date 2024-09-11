@@ -4,10 +4,12 @@ import { AlertModal } from '@/components/alert-modal/alert-modal';
 import useModal from '@/lib/helper';
 import { endpointObj } from '@/lib/endpoints';
 import { FormEvent, useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-export default function RegisterForm() {
+export default function RegisterForm(props: any) {
   const { dialogRef, toggleDialog } = useModal();
-
+  const router = useRouter();
   const [dialogContent, setDialogContent] = useState('error');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,22 +21,30 @@ export default function RegisterForm() {
         password: formData.get('password'),
       })
     );
-    const resCreateUser = await fetch(
-      endpointObj.registerUrl,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: formData.get('email'),
-          password: formData.get('password'),
-        }),
-      }
-    );
+    const resCreateUser = await fetch(endpointObj.registerUrl, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: formData.get('email'),
+        password: formData.get('password'),
+      }),
+    });
     if (resCreateUser.status === 201) {
       const data = await resCreateUser.json();
+      const res = await signIn('credentials', {
+        username: formData.get('email'),
+        password: formData.get('password'),
+        redirect: false,
+      });
+      if (!res?.error) {
+        router.push(props.callbackUrl ?? "/");
+      } else {
+        console.log('not authorized');
+      }
+      console.log(data);
       // router.push(props.callbackUrl ?? "/");
     } else {
       const errResponse = await resCreateUser.json();
