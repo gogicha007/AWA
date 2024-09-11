@@ -5,6 +5,8 @@ import { endpointObj } from '@/lib/endpoints';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 interface UserData {
+  firstName: string;
+  lastName: string;
   username: string;
   email: string;
   user_id: number;
@@ -43,6 +45,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: {},
         password: {},
+        
       },
       async authorize(credentials) {
         const res = await fetch(endpointObj.signinUrl, {
@@ -52,12 +55,14 @@ export const authOptions: NextAuthOptions = {
         });
         const token = await res.json();
         if (res.status !== 200) return null;
-        const { username, email, user_id, exp, is_superuser, is_staff } =
+        const { firstName, lastName, username, email, user_id, exp, is_superuser, is_staff } =
           jwtDecode(token.access) as UserData;
         return {
           ...token,
           exp,
           user: {
+            firstName,
+            lastName,
             username,
             email,
             user_id,

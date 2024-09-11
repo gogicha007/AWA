@@ -15,12 +15,6 @@ export default function RegisterForm(props: any) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    console.log(
-      JSON.stringify({
-        username: formData.get('email'),
-        password: formData.get('password'),
-      })
-    );
     const resCreateUser = await fetch(endpointObj.registerUrl, {
       method: 'POST',
       headers: {
@@ -30,6 +24,9 @@ export default function RegisterForm(props: any) {
       body: JSON.stringify({
         username: formData.get('email'),
         password: formData.get('password'),
+        first_name: formData.get('firstName'),
+        last_name: formData.get('lastName'),
+        email: formData.get('email'),
       }),
     });
     if (resCreateUser.status === 201) {
@@ -40,12 +37,10 @@ export default function RegisterForm(props: any) {
         redirect: false,
       });
       if (!res?.error) {
-        router.push(props.callbackUrl ?? "/");
+        router.push(props.callbackUrl ?? '/');
       } else {
         console.log('not authorized');
       }
-      console.log(data);
-      // router.push(props.callbackUrl ?? "/");
     } else {
       const errResponse = await resCreateUser.json();
       console.log(errResponse.username[0]);
@@ -55,6 +50,10 @@ export default function RegisterForm(props: any) {
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      <label htmlFor="firstName">First Name</label>
+      <input className={styles.form__input} type="text" name="firstName" />
+      <label htmlFor="lastName">Last Name</label>
+      <input className={styles.form__input} type="text" name="lastName" />
       <label htmlFor="email">User</label>
       <input className={styles.form__input} type="email" name="email" />
       <label htmlFor="password">Password</label>
