@@ -26,9 +26,12 @@ const AuthBar = () => {
   return (
     <div className={styles.auth}>
       {session?.user ? (
+        <>
+        <p className={styles.user}>{session.user.name}</p>
         <button type="button" onClick={handleSignout} className={styles.btn}>
           Sign Out
         </button>
+        </>
       ) : (
         <>
           <button type="button" onClick={handleSignin} className={styles.btn}>
