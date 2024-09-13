@@ -57,7 +57,6 @@ export const authOptions: NextAuthOptions = {
         const {
           firstName,
           lastName,
-          username,
           email,
           user_id,
           exp,
