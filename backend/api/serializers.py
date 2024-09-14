@@ -25,4 +25,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['is_superuser'] = user.is_superuser
         token['is_staff'] = user.is_staff
+        print(token.lifetime)
+        print(token.access_token.lifetime)
         return token
