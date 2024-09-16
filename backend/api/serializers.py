@@ -25,6 +25,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['is_superuser'] = user.is_superuser
         token['is_staff'] = user.is_staff
-        print(token.lifetime)
-        print(token.access_token.lifetime)
+        token['refresh_lifetime'] = int(token.lifetime.total_seconds()*1000) # type: ignore
+        token['access_lifetime'] = int(token.access_token.lifetime.total_seconds()*1000) # type: ignore
+        print(int(token.lifetime.total_seconds()*1000)) # type: ignore
+        print(int(token.access_token.lifetime.total_seconds()*1000)) # type: ignore
         return token
