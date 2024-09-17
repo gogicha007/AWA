@@ -68,6 +68,8 @@ export const authOptions: NextAuthOptions = {
           access_lifetime,
         } = jwtDecode(token.access) as UserData;
         const name = firstName.concat(' ', lastName);
+        const dateNow = Date.now();
+        console.log('dateNow', dateNow)
         return {
           ...token,
           exp,
@@ -78,7 +80,8 @@ export const authOptions: NextAuthOptions = {
             is_staff,
             is_superuser,
             refresh_lifetime,
-            access_lifetime,
+            refreshExpiresIn: dateNow + (refresh_lifetime as number),
+            accessExpiresIn: dateNow + (access_lifetime as number),
           },
         };
       },
@@ -91,6 +94,8 @@ export const authOptions: NextAuthOptions = {
         token.user = user.user;
         token.access = user.access;
         token.refresh = user.refresh;
+        token.accessExp = token.iat as number;
+        console.log('token accessExp', token.accessExp)
       }
       return token;
     },
@@ -99,10 +104,9 @@ export const authOptions: NextAuthOptions = {
       session.user = token.user as User;
       session.accessToken = token.access;
       session.refreshToken = token.refresh;
-      session.accessExp =
-        (token.iat as number) * 1000 + (token.user.access_lifetime as number);
-      session.refreshExp =
-        (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
+      session.accessExp = token.accessExp;
+      // session.refreshExp =
+      //   (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
       console.log('session callback', { session });
       return session;
     },

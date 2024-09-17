@@ -14,7 +14,9 @@ declare module "next-auth" {
       access_lifetime: number;
     }
     access?: string;
+    accessExp?: number;
     refresh?: string;
+    iat: number;
   }
 
   interface Session {
