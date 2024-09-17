@@ -1,11 +1,15 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { AlertModal } from "../alert-modal/alert-modal";
 import Link from "next/link";
 import styles from "./login.module.css";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useModal from "@/lib/helper";
 
 const LoginForm = (props: any) => {
+  const {dialogRef, toggleDialog} = useModal();
+  const [dialogContent, setDialogContent] = useState('error')
   const router = useRouter();
   const userName = useRef("");
   const userPass = useRef("");
@@ -17,10 +21,12 @@ const LoginForm = (props: any) => {
       password: userPass.current,
       redirect: false,
     });
-    if (!res?.error) {
+    if (res?.ok) {
       router.push(props.callbackUrl ?? "/");
     } else {
-      console.log('not authorized')
+      console.log('wrond credentials')
+      setDialogContent('ამ მონაცემებით ანგარიში არ მოიძებნა');
+      toggleDialog();
     }
   };
 
@@ -47,6 +53,9 @@ const LoginForm = (props: any) => {
           <Link href={"/"}>Cancel</Link>
         </button>
       </div>
+      <AlertModal toggleDialog={toggleDialog} ref={dialogRef}>
+        <h3>{dialogContent}</h3>
+      </AlertModal>
     </form>
   );
 };

@@ -14,6 +14,8 @@ interface UserData {
   is_superuser: boolean;
   is_staff: boolean;
   refresh?: string;
+  refresh_lifetime?: number;
+  access_lifetime?: number;
 }
 
 async function refreshAccessToken(token: UserData) {
@@ -57,12 +59,13 @@ export const authOptions: NextAuthOptions = {
         const {
           firstName,
           lastName,
-          username,
           email,
           user_id,
           exp,
           is_superuser,
           is_staff,
+          refresh_lifetime,
+          access_lifetime,
         } = jwtDecode(token.access) as UserData;
         const name = firstName.concat(' ', lastName);
         return {
@@ -74,6 +77,8 @@ export const authOptions: NextAuthOptions = {
             user_id,
             is_staff,
             is_superuser,
+            refresh_lifetime,
+            access_lifetime,
           },
         };
       },
@@ -90,9 +95,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }): Promise<Session> {
+      console.log('token', { token });
       session.user = token.user as User;
       session.accessToken = token.access;
       session.refreshToken = token.refresh;
+      session.accessExp =
+        (token.iat as number) * 1000 + (token.user.access_lifetime as number);
+      session.refreshExp =
+        (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
       console.log('session callback', { session });
       return session;
     },
