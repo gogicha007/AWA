@@ -16,6 +16,7 @@ declare module "next-auth" {
     access?: string;
     accessExp?: number;
     refresh?: string;
+    exp: number;
     iat: number;
   }
 
@@ -23,7 +24,7 @@ declare module "next-auth" {
     /** This is an example. You can find me in types/next-auth.d.ts */
     accessToken?: string,
     refreshToken?: string,
-    accessExp?: number,
+    accessExpiresIn?: number,
     refreshExp?: number,
   }
 }
@@ -32,13 +33,13 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     /** This is an example. You can find me in types/next-auth.d.ts */
-    user: {
+    user?: {
       refresh_lifetime?: number;
       access_lifetime?: number;
     }
     access?: string,
-    accessExp: number;
+    accessExpiresIn?: number;
     refresh?: string;
-    refreshExp: number;
+    refreshExp?: number;
   }
 }

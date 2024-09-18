@@ -18,24 +18,23 @@ interface UserData {
   access_lifetime?: number;
 }
 
-async function refreshAccessToken(token: UserData) {
-  try {
-    const res = await fetch(endpointObj.refreshUrl, {
-      method: 'POST',
-      body: JSON.stringify({ refresh: token.refresh }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const refreshedToken = await res.json();
-    if (res.status !== 200) throw refreshedToken;
-    const { exp } = jwtDecode(refreshedToken.access);
+async function refreshAccessToken(token: JWT) {
+  const res = await fetch(endpointObj.refreshUrl, {
+    method: 'POST',
+    body: JSON.stringify({ refresh: token.refresh }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (res.ok) {
+    const data = await res.json();
     return {
       ...token,
-      ...refreshedToken,
-      exp,
+      error: null,
+      accessToken: data.access_token,
+      refreshtoken: data.refreshToken,
+      accessExpiresIn: Date.now() + data.exp - 2000,
     };
-  } catch (error) {
+  } else {
     return {
-      ...token,
       error: 'RefreshAccessTokenError',
     };
   }
@@ -64,12 +63,12 @@ export const authOptions: NextAuthOptions = {
           exp,
           is_superuser,
           is_staff,
-          refresh_lifetime,
-          access_lifetime,
+          // refresh_lifetime,
+          // access_lifetime,
         } = jwtDecode(token.access) as UserData;
         const name = firstName.concat(' ', lastName);
-        const dateNow = Date.now();
-        console.log('dateNow', dateNow)
+        // const dateNow = Date.now();
+        // console.log('dateNow', dateNow)
         return {
           ...token,
           exp,
@@ -79,9 +78,9 @@ export const authOptions: NextAuthOptions = {
             user_id,
             is_staff,
             is_superuser,
-            refresh_lifetime,
-            refreshExpiresIn: dateNow + (refresh_lifetime as number),
-            accessExpiresIn: dateNow + (access_lifetime as number),
+            // refresh_lifetime,
+            // refreshExpiresIn: dateNow + (refresh_lifetime as number),
+            // accessExpiresIn: dateNow + (access_lifetime as number),
           },
         };
       },
@@ -94,17 +93,20 @@ export const authOptions: NextAuthOptions = {
         token.user = user.user;
         token.access = user.access;
         token.refresh = user.refresh;
-        token.accessExp = token.iat as number;
-        console.log('token accessExp', token.accessExp)
+        token.accessExpiresIn = user.exp - 2000;
       }
-      return token;
+      if (Date.now() < (token.accessExpiresIn as number)) {
+        return token;
+      }
+
+      return await refreshAccessToken(token);
     },
     async session({ session, token }): Promise<Session> {
       console.log('token', { token });
       session.user = token.user as User;
       session.accessToken = token.access;
       session.refreshToken = token.refresh;
-      session.accessExp = token.accessExp;
+      session.accessExpiresIn = token.accessExpiresIn;
       // session.refreshExp =
       //   (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
       console.log('session callback', { session });
