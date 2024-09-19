@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 
 const AuthBar = () => {
   const { data: session, status } = useSession();
-  console.log({ session });
   if (status === 'authenticated') {
     console.log('authenticated');
   } else {
