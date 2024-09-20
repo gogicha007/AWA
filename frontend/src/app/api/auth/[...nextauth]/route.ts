@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import NextAuth, { NextAuthOptions, Session, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { jwtDecode } from 'jwt-decode';
@@ -26,6 +27,7 @@ async function refreshAccessToken(token: JWT) {
   });
   if (res.ok) {
     const data = await res.json();
+    cookies().set("loggedin", "true")
     return {
       ...token,
       error: null,
@@ -88,7 +90,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }): Promise<JWT> {
-      console.log('jwt callback', { token, user });
+      // console.log('jwt callback', { token, user });
       if (user) {
         token.user = user.user;
         token.access = user.access;
@@ -102,14 +104,14 @@ export const authOptions: NextAuthOptions = {
       return await refreshAccessToken(token);
     },
     async session({ session, token }): Promise<Session> {
-      console.log('token', { token });
+      // console.log('token', { token });
       session.user = token.user as User;
       session.accessToken = token.access;
       session.refreshToken = token.refresh;
       session.accessExpiresIn = token.accessExpiresIn;
       // session.refreshExp =
       //   (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
-      console.log('session callback', { session });
+      // console.log('session callback', { session });
       return session;
     },
   },

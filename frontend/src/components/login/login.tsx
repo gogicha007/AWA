@@ -24,7 +24,6 @@ const LoginForm = (props: any) => {
     if (res?.ok) {
       router.push(props.callbackUrl ?? "/");
     } else {
-      console.log('wrond credentials')
       setDialogContent('ამ მონაცემებით ანგარიში არ მოიძებნა');
       toggleDialog();
     }
