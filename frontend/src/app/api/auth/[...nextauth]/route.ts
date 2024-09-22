@@ -43,6 +43,7 @@ async function refreshAccessToken(token: JWT) {
   }
 }
 export const authOptions: NextAuthOptions = {
+  secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'Credentials',
