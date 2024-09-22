@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './authbar.module.css';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { setLoginCookie } from '@/lib/utils';
 
 const AuthBar = () => {
   const { data: session, status } = useSession();
@@ -21,6 +22,8 @@ const AuthBar = () => {
   };
   const handleSignout = () => {
     signOut();
+    setLoginCookie('false')
+    router.push('/signin');
   };
   return (
     <div className={styles.auth}>

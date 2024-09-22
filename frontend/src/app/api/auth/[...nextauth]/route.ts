@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import NextAuth, { NextAuthOptions, Session, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { jwtDecode } from 'jwt-decode';
 import { endpointObj } from '@/lib/endpoints';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { setLoginCookie } from '@/lib/utils';
 
 interface UserData {
   firstName: string;
@@ -27,7 +27,7 @@ async function refreshAccessToken(token: JWT) {
   });
   if (res.ok) {
     const data = await res.json();
-    cookies().set("loggedin", "true")
+    setLoginCookie('true');
     return {
       ...token,
       error: null,
@@ -36,6 +36,7 @@ async function refreshAccessToken(token: JWT) {
       accessExpiresIn: Date.now() + data.exp - 2000,
     };
   } else {
+    setLoginCookie('false');
     return {
       error: 'RefreshAccessTokenError',
     };
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         });
         const token = await res.json();
         if (res.status !== 200) return null;
+        setLoginCookie('true');
         const {
           firstName,
           lastName,
@@ -69,8 +71,6 @@ export const authOptions: NextAuthOptions = {
           // access_lifetime,
         } = jwtDecode(token.access) as UserData;
         const name = firstName.concat(' ', lastName);
-        // const dateNow = Date.now();
-        // console.log('dateNow', dateNow)
         return {
           ...token,
           exp,
@@ -112,6 +112,7 @@ export const authOptions: NextAuthOptions = {
       // session.refreshExp =
       //   (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
       // console.log('session callback', { session });
+      // console.log('session', session)
       return session;
     },
   },

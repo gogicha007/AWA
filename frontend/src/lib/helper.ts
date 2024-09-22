@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+
 export default function useModal() {
     const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -14,3 +15,5 @@ export default function useModal() {
 
   return { dialogRef, toggleDialog };
 }
+
+

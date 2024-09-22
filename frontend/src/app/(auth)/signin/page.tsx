@@ -3,7 +3,7 @@ import LoginForm from "../../../components/login/login";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-const SignIn = () => {
+const SignIn = async () => {
   return (
     <div className={styles.signin}>
       <h2>Login</h2>

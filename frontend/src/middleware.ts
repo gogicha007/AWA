@@ -9,16 +9,18 @@ export default async function middleware(
   res: NextResponse,
   event: NextFetchEvent
 ) {
-    console.log('req pure', req)
-//   console.log('req', req.nextUrl);
-  console.log(cookies().get('loggedin'));
+    // console.log('req pure', req.headers)
+  // console.log('req nexturl', req.nextUrl);
+  // console.log('req url', req.url)
+  // console.log(cookies().get('loggedin'));
+  // console.log(cookies().getAll())
 
   //   const isAuthenticated = !!token;
 
     if (req.nextUrl.pathname.startsWith('/signin') && cookies().get('loggedin')) {
         // return redirect('/')
-        //   return NextResponse.redirect('/');
-    //   return NextResponse.redirect(new URL('/', req.url));
+        // return NextResponse.redirect('http://localhost:3000');
+        // return NextResponse.redirect(new URL('/', req.url));
     }
 
   //   const authMiddleware = await withAuth({
