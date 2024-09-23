@@ -5,9 +5,9 @@ import { authOptions } from './api/auth/[...nextauth]/route';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-
-  console.log('session home', JSON.stringify(session, null, 2));
+  // console.log(session)
   if (!session) {
+    console.log('not session')
     redirect('/signin');
   }
   return <h1>Home Page</h1>;
