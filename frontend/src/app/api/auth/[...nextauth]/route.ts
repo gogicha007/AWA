@@ -3,7 +3,6 @@ import { JWT } from 'next-auth/jwt';
 import { jwtDecode } from 'jwt-decode';
 import { endpointObj } from '@/lib/endpoints';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { setLoginCookie } from '@/lib/utils';
 
 interface UserData {
   firstName: string;
@@ -27,7 +26,6 @@ async function refreshAccessToken(token: JWT) {
   });
   if (res.ok) {
     const data = await res.json();
-    setLoginCookie('true');
     return {
       ...token,
       error: null,
@@ -36,7 +34,6 @@ async function refreshAccessToken(token: JWT) {
       accessExpiresIn: Date.now() + data.exp - 2000,
     };
   } else {
-    setLoginCookie('false');
     return {
       error: 'RefreshAccessTokenError',
     };
@@ -59,7 +56,6 @@ export const authOptions: NextAuthOptions = {
         });
         const token = await res.json();
         if (res.status !== 200) return null;
-        setLoginCookie('true');
         const {
           firstName,
           lastName,
