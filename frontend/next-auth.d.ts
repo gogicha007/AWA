@@ -12,10 +12,8 @@ declare module "next-auth" {
       is_superuser: boolean;
     }
     access?: string;
-    accessExp?: number;
     refresh?: string;
     exp: number;
-    iat: number;
   }
 
   interface Session {

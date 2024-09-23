@@ -62,7 +62,6 @@ export const authOptions: NextAuthOptions = {
             is_staff,
             is_superuser,
           } = jwtDecode(token.access) as UserData;
-          console.log(jwtDecode(token.access));
           return {
             ...token,
             exp,
@@ -83,14 +82,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }): Promise<JWT> {
       // console.log('jwt callback', { token, user });
       if (user) {
-        console.log('initial jwt callback', user.exp);
         token.user = user.user;
         token.access = user.access;
         token.refresh = user.refresh;
         token.expiresIn = user.exp;
       }
       if (Date.now() < (token.expiresIn as number) * 1000) {
-        console.log('check token');
         return token;
       }
       return await refreshAccessToken(token);
