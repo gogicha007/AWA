@@ -27,7 +27,7 @@ async function refreshAccessToken(token: JWT) {
     return {
       ...data,
       refresh: token.refresh,
-      expiresIn: jwtDecode(data.access).exp as number,
+      expiresIn: jwtDecode(data.access).exp,
       user: token.user,
     };
   } else {
@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
           console.log(jwtDecode(token.access));
           return {
             ...token,
-            exp: exp,
+            exp,
             user: {
               name: firstName.concat(' ', lastName),
               email,
@@ -95,6 +95,7 @@ export const authOptions: NextAuthOptions = {
       }
       return await refreshAccessToken(token);
     },
+
     async session({ session, token }): Promise<Session> {
       session.user = token.user as User;
       return session;
