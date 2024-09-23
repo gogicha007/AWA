@@ -14,8 +14,6 @@ interface UserData {
   is_superuser: boolean;
   is_staff: boolean;
   refresh?: string;
-  refresh_lifetime?: number;
-  access_lifetime?: number;
 }
 
 async function refreshAccessToken(token: JWT) {
@@ -27,11 +25,10 @@ async function refreshAccessToken(token: JWT) {
   if (res.ok) {
     const data = await res.json();
     return {
-      ...token,
-      error: null,
-      accessToken: data.access_token,
-      refreshtoken: data.refreshToken,
-      accessExpiresIn: Date.now() + data.exp - 2000,
+      ...data,
+      refresh: token.refresh,
+      expiresIn: jwtDecode(data.access).exp as number,
+      user: token.user,
     };
   } else {
     return {
@@ -55,33 +52,30 @@ export const authOptions: NextAuthOptions = {
           headers: { 'Content-Type': 'application/json' },
         });
         const token = await res.json();
-        if (res.status !== 200) return null;
-        const {
-          firstName,
-          lastName,
-          email,
-          user_id,
-          exp,
-          is_superuser,
-          is_staff,
-          // refresh_lifetime,
-          // access_lifetime,
-        } = jwtDecode(token.access) as UserData;
-        const name = firstName.concat(' ', lastName);
-        return {
-          ...token,
-          exp,
-          user: {
-            name,
+        if (res.ok && token) {
+          const {
+            firstName,
+            lastName,
             email,
             user_id,
+            exp,
             is_staff,
             is_superuser,
-            // refresh_lifetime,
-            // refreshExpiresIn: dateNow + (refresh_lifetime as number),
-            // accessExpiresIn: dateNow + (access_lifetime as number),
-          },
-        };
+          } = jwtDecode(token.access) as UserData;
+          console.log(jwtDecode(token.access));
+          return {
+            ...token,
+            exp: exp,
+            user: {
+              name: firstName.concat(' ', lastName),
+              email,
+              user_id,
+              is_staff,
+              is_superuser,
+            },
+          };
+        }
+        return null;
       },
     }),
   ],
@@ -89,27 +83,20 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }): Promise<JWT> {
       // console.log('jwt callback', { token, user });
       if (user) {
+        console.log('initial jwt callback', user.exp);
         token.user = user.user;
         token.access = user.access;
         token.refresh = user.refresh;
-        token.accessExpiresIn = user.exp - 2000;
+        token.expiresIn = user.exp;
       }
-      if (Date.now() < (token.accessExpiresIn as number)) {
+      if (Date.now() < (token.expiresIn as number) * 1000) {
+        console.log('check token');
         return token;
       }
-
       return await refreshAccessToken(token);
     },
     async session({ session, token }): Promise<Session> {
-      // console.log('token', { token });
       session.user = token.user as User;
-      session.accessToken = token.access;
-      session.refreshToken = token.refresh;
-      session.accessExpiresIn = token.accessExpiresIn;
-      // session.refreshExp =
-      //   (token.iat as number) * 1000 + (token.user.refresh_lifetime as number);
-      // console.log('session callback', { session });
-      // console.log('session', session)
       return session;
     },
   },
