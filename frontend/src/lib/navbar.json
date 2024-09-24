@@ -7,9 +7,9 @@
     },
     {
       "id": 2,
-      "icon": "/images/inventory.svg",
-      "title": "Villages",
-      "url": "/villages"
+      "icon": "/images/materials.svg",
+      "title": "Materials",
+      "url": "/materials"
     },
     {
       "id": 3,
