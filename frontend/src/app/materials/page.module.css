@@ -1,0 +1,16 @@
+.materials {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.materials__navbar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.materials__btn {
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid;
+}
