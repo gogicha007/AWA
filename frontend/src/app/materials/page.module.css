@@ -18,4 +18,10 @@
 .materials__main {
     height: 100%;
     align-self: center;
+    justify-content: center;
+}
+.materials__footer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
 }

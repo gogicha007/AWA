@@ -1,7 +1,5 @@
-import styles from './page.module.css'
-import Link from "next/link";
-
-
+import styles from './page.module.css';
+import Link from 'next/link';
 
 export default function MaterialsLayout({
   children,
@@ -17,15 +15,15 @@ export default function MaterialsLayout({
           </Link>
         </li>
         <li>
-          <Link
-            className={styles.materials__btn}
-            href={'/materials/warehouse'}
-          >
+          <Link className={styles.materials__btn} href={'/materials/warehouse'}>
             Wharehouse
           </Link>
         </li>
       </ul>
-      <section>{children}</section>
+      <div className={styles.materials__main}>{children}</div>
+      <div className={styles.materials__footer}>
+        <h3>Footer</h3>
+      </div>
     </div>
   );
 }
