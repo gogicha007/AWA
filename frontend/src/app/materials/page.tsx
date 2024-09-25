@@ -1,28 +1,19 @@
-import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import styles from './page.module.css';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
-export default function Materials() {
+export default async function Materials() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    console.log('not session');
+    redirect('/signin');
+  }
   return (
-    <div className={styles.materials}>
-      <ul className={styles.materials__navbar}>
-        <li>
-          <Link className={styles.materials__btn} href={'/materials/purchases'}>
-            Purchases
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={styles.materials__btn}
-            href={'/materials/wharehouse'}
-          >
-            Wharehouse
-          </Link>
-        </li>
-      </ul>
-      <div>
-        
+    <main>
+      <div className={styles.materials__main}>
+        <h1>Materials</h1>
       </div>
-      <h1>here comes the Materials</h1>
-    </div>
+    </main>
   );
 }

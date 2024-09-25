@@ -20,6 +20,7 @@ class Purchase(models.Model):
         ('VALVE', 'VALVE'),
         ('FITTING', 'FITTING'),
         ('STRAINER', 'STRAINER'),
+        ('PUMP','PUMP'),
         ('DISMANTLING_JOINT', 'DISMANTLING JOINT'),
         ('OTHER', 'OTHER')
     ]
@@ -124,14 +125,6 @@ class Materials(models.Model):
 
 class Suppliers(models.Model):
     name = models.CharField(max_length=20)
-
-
-class Purchases(models.Model):
-    invoice_no = models.CharField(max_length=20)
-    manufacturer = models.CharField(max_length=20)
-
-    def __str__(self):
-        return str(self.id)
 
 
 class Nodes(models.Model):
