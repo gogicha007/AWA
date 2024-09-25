@@ -1,5 +1,5 @@
 import os
-import dotenv # import load_dotenv  # type: ignore
+import dotenv  # import load_dotenv  # type: ignore
 from pathlib import Path
 from datetime import timedelta
 
@@ -146,6 +146,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+DATE_FORMAT = "%Y-%m-%d"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

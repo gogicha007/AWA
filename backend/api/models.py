@@ -48,11 +48,11 @@ class Purchase(models.Model):
     pn = models.CharField(
         max_length=3, choices=PN, default='NA')
     decl_no = models.CharField(max_length=7)
-    decl_date = models.DateField
+    decl_date = models.DateField(null=True, blank=True)
     seller = models.CharField(max_length=30)
     truck = models.CharField(max_length=12)
     invoice = models.CharField(max_length=20)
-    inv_date = models.DateField
+    inv_date = models.DateField(null=True, blank=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     quantity = models.DecimalField(
