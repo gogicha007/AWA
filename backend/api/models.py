@@ -39,33 +39,33 @@ class Purchase(models.Model):
         ('USD', 'USD'),
         ('EUR', 'EUR')
     ]
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=True, blank=True)
     material = models.CharField(
-        max_length=15, choices=MATERIALS, default='PE100')
+        max_length=15, choices=MATERIALS, default='PE100', null=True, blank=True)
     type = models.CharField(
-        max_length=17, choices=CATEGORIES, default='OTHER'
+        max_length=17, choices=CATEGORIES, default='OTHER', null=True, blank=True
     )
     dn = models.IntegerField(null=True)
     pn = models.CharField(
-        max_length=3, choices=PN, default='NA')
+        max_length=3, choices=PN, default='NA', null=True, blank=True)
     decl_no = models.CharField(max_length=7, null=True, blank=True)
     decl_date = models.DateField(default=datetime.date.today)
     seller = models.CharField(max_length=30, null=True, blank=True)
-    truck = models.CharField(max_length=12, null=True, blank=True)
+    truck = models.CharField(max_length=25, null=True, blank=True)
     invoice = models.CharField(max_length=20, null=True, blank=True)
     inv_date = models.DateField(default=datetime.date.today)
     name = models.CharField(max_length=100, null=True, blank=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
     qty = models.DecimalField(
         max_digits=9, decimal_places=2, null=True, blank=True)
     measure = models.CharField(
-        max_length=5, choices=UNIT, default='PCS'
+        max_length=5, choices=UNIT, default='PCS', null=True, blank=True
     )
     price = models.DecimalField(
         max_digits=9, decimal_places=2, null=True, blank=True
     )
     currency = models.CharField(
-        max_length=3, choices=CURRENCY, default='EUR'
+        max_length=3, choices=CURRENCY, default='EUR', null=True, blank=True
     )
 
     class Meta:
