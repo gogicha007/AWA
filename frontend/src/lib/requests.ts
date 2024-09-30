@@ -13,3 +13,13 @@ export const registerUser = async (username: string, password: string) => {
   });
   return response;
 };
+
+export const purchaseList = async (userData: string) => {
+  const purchaseResponse = await fetch(`${url}/api/purchase/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${userData}`,
+    },
+  });
+};

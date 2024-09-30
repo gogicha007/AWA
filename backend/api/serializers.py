@@ -1,12 +1,20 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import Purchase
+
+
+class PurchaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Purchase
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email', 'username', 'password']
+        fields = ['id', 'first_name', 'last_name',
+                  'email', 'username', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -25,8 +33,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['is_superuser'] = user.is_superuser
         token['is_staff'] = user.is_staff
-        token['refresh_lifetime'] = int(token.lifetime.total_seconds()*1000) # type: ignore
-        token['access_lifetime'] = int(token.access_token.lifetime.total_seconds()*1000) # type: ignore
-        print(int(token.lifetime.total_seconds()*1000)) # type: ignore
-        print(int(token.access_token.lifetime.total_seconds()*1000)) # type: ignore
+        token['refresh_lifetime'] = int(
+            token.lifetime.total_seconds()*1000)  # type: ignore
+        token['access_lifetime'] = int(
+            token.access_token.lifetime.total_seconds()*1000)  # type: ignore
+        print(int(token.lifetime.total_seconds()*1000))  # type: ignore
+        print(int(token.access_token.lifetime.total_seconds()*1000))  # type: ignore
         return token
